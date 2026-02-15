@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { RestaurantData, MenuCategory, MenuItem, Pairings, WinePairing } from '@/types/menu';
 import { updateMenu } from '../actions/admin';
+import { saveSession } from '@/app/lib/session';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface AdminDashboardProps {
