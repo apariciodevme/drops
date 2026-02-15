@@ -45,6 +45,12 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
         const result = await updateMenu(tenantId, data);
         setIsSaving(false);
         if (result.success) {
+            // Update local session so the main app sees changes immediately
+            saveSession({
+                tenantId,
+                restaurantName,
+                menuData: data
+            });
             setMessage('Menu updated successfully!');
             setTimeout(() => setMessage(''), 3000);
         } else {
