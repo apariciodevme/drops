@@ -16,15 +16,26 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
     }
 
     try {
-        const { error } = await supabase
+        console.log(`[Admin] Updating menu for tenant: ${tenantId}, Menu items: ${validation.data.menu.length}`);
+
+        const { data: updatedData, error } = await supabase
             .from('tenants')
             .update({ menu: validation.data.menu })
-            .eq('id', tenantId);
+            .eq('id', tenantId)
+            .select();
 
         if (error) {
-            console.error('Supabase update error:', error);
-            return { error: 'Failed to update menu in database.' };
+            console.error('[Admin] Supabase update error:', error);
+            return { error: 'Failed to update menu in database: ' + error.message };
         }
+
+        if (!updatedData || updatedData.length === 0) {
+            console.error('[Admin] No rows updated. Check Tenant ID or RLS policies.');
+            return { error: 'No changes saved. Access denied or Tenant not found.' };
+        }
+
+        console.log('[Admin] Update successful. Rows affected:', updatedData.length);
+        return { success: true };
 
         return { success: true };
     } catch (error) {
