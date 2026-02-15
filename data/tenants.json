@@ -1,0 +1,20 @@
+[
+    {
+        "id": "palate",
+        "name": "Palate.",
+        "accessCode": "1234",
+        "theme": "light"
+    },
+    {
+        "id": "pastis",
+        "name": "Pastis Bistrobar",
+        "accessCode": "8888",
+        "theme": "light"
+    },
+    {
+        "id": "villa_paradiso",
+        "name": "Villa Paradiso Majorstua",
+        "accessCode": "1111",
+        "theme": "light"
+    }
+]

@@ -1,0 +1,155 @@
+{
+    "restaurantName": "Pastis Bistrobar",
+    "menu": [
+        {
+            "category": "Starters",
+            "items": [
+                {
+                    "dish": "French Onion Soup",
+                    "price": 185,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Hugel Gentil Alsace",
+                            "grape": "Gewurztraminer Blend",
+                            "vintage": "2022",
+                            "price": "165,-",
+                            "note": "Aromatic white to balance the savory broth."
+                        },
+                        "midRange": {
+                            "name": "Louis Jadot Beaujolais-Villages",
+                            "grape": "Gamay",
+                            "vintage": "2023",
+                            "price": "750,-",
+                            "note": "Fruity and light, a classic bistro pairing."
+                        },
+                        "exclusive": {
+                            "name": "Domaine Weinbach Riesling Schlossberg",
+                            "grape": "Riesling",
+                            "vintage": "2020",
+                            "price": "1450,-",
+                            "note": "Grand Cru Alsace power for a rich soup."
+                        }
+                    }
+                },
+                {
+                    "dish": "Escargots de Bourgogne",
+                    "price": 195,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Petit Chablis",
+                            "grape": "Chardonnay",
+                            "vintage": "2023",
+                            "price": "185,-",
+                            "note": "Crisp acidity cuts through the garlic butter."
+                        },
+                        "midRange": {
+                            "name": "William Fevre Chablis",
+                            "grape": "Chardonnay",
+                            "vintage": "2022",
+                            "price": "890,-",
+                            "note": "Mineral and precise, the perfect snail companion."
+                        },
+                        "exclusive": {
+                            "name": "Ravenau Chablis 1er Cru Montée de Tonnerre",
+                            "grape": "Chardonnay",
+                            "vintage": "2018",
+                            "price": "2800,-",
+                            "note": "A legendary Chablis for a classic dish."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Mains",
+            "items": [
+                {
+                    "dish": "Moules Frites",
+                    "price": 265,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Muscadet Sèvre et Maine sur Lie",
+                            "grape": "Melon de Bourgogne",
+                            "vintage": "2023",
+                            "price": "155,-",
+                            "note": "Saline and fresh, made for shellfish."
+                        },
+                        "midRange": {
+                            "name": "Sancerre Domaine Vacheron",
+                            "grape": "Sauvignon Blanc",
+                            "vintage": "2023",
+                            "price": "950,-",
+                            "note": "Elegant herbal notes complement the mussels."
+                        },
+                        "exclusive": {
+                            "name": "Didier Dagueneau Silex",
+                            "grape": "Sauvignon Blanc",
+                            "vintage": "2020",
+                            "price": "2200,-",
+                            "note": "The ultimate expression of Sauvignon Blanc."
+                        }
+                    }
+                },
+                {
+                    "dish": "Steak Frites with Béarnaise",
+                    "price": 395,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Côtes du Rhône Rouge",
+                            "grape": "Grenache/Syrah",
+                            "vintage": "2022",
+                            "price": "175,-",
+                            "note": "Spicy and robust enough for the beef."
+                        },
+                        "midRange": {
+                            "name": "Château Bernadotte Haut-Médoc",
+                            "grape": "Bordeaux Blend",
+                            "vintage": "2016",
+                            "price": "1100,-",
+                            "note": "Classic structured Bordeaux for steak."
+                        },
+                        "exclusive": {
+                            "name": "Château Pontet-Canet",
+                            "grape": "Cabernet Sauvignon Blend",
+                            "vintage": "2015",
+                            "price": "3500,-",
+                            "note": "Pauillac power and elegance."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Dessert",
+            "items": [
+                {
+                    "dish": "Crème Brûlée",
+                    "price": 145,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Château Rieussec Carmes de Rieussec",
+                            "grape": "Sauternes Blend",
+                            "vintage": "2020",
+                            "price": "165,-",
+                            "note": "Honeyed sweetness to match the custard."
+                        },
+                        "midRange": {
+                            "name": "Royal Tokaji 5 Puttonyos",
+                            "grape": "Furmint",
+                            "vintage": "2017",
+                            "price": "1200,-",
+                            "note": "Complex acidity balances the sugar."
+                        },
+                        "exclusive": {
+                            "name": "Château d'Yquem",
+                            "grape": "Sauternes Blend",
+                            "vintage": "2005",
+                            "price": "5500,-",
+                            "note": "The king of wines for the queen of desserts."
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  /* Apple Light Mode Palette */
+  --background: #f5f5f7;
+  /* Light Gray Base */
+  --foreground: #1d1d1f;
+  /* Near Black */
+
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+
+  --popover: rgba(255, 255, 255, 0.72);
+  /* Glassy */
+  --popover-foreground: #1d1d1f;
+
+  --primary: #007aff;
+  /* Apple Blue (Classic) or Monochrome #1d1d1f */
+  --primary-foreground: #ffffff;
+
+  --secondary: #e5e5ea;
+  /* System Gray 5/6 */
+  --secondary-foreground: #1d1d1f;
+
+  --muted: #86868b;
+  /* System Gray */
+  --muted-foreground: #86868b;
+
+  --accent: #007aff;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ff3b30;
+  /* System Red */
+  --destructive-foreground: #ffffff;
+
+  --border: #d1d1d6;
+  /* System Gray 4 */
+  --input: #e5e5ea;
+  --ring: #007aff;
+
+  --radius: 1rem;
+  /* rounded-2xl roughly */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

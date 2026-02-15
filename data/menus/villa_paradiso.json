@@ -1,0 +1,1304 @@
+{
+    "restaurantName": "Villa Paradiso Majorstua",
+    "menu": [
+        {
+            "category": "Antipasti",
+            "items": [
+                {
+                    "dish": "Olive",
+                    "price": 86,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Pane ai cereali",
+                    "price": 69,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Aioli",
+                    "price": 35,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Mandorle salate",
+                    "price": 62,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Prosciutto di Parma & melone",
+                    "price": 205,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Salame calabrese",
+                    "price": 115,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Prosciutto di Parma",
+                    "price": 145,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Coppa di Parma",
+                    "price": 115,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Pecorino",
+                    "price": 115,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Parmigiano Reggiano",
+                    "price": 115,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Gorgonzola",
+                    "price": 115,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Mozzarella di bufala Campana",
+                    "price": 215,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Burrata",
+                    "price": 215,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Stracciatella",
+                    "price": 119,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Bruschetta",
+                    "price": 170,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Carpaccio di manzo",
+                    "price": 220,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Conti Uttieri Ancile Aglianico IGT, Campania",
+                            "grape": "Aglianico",
+                            "price": "145,-",
+                            "vintage": "2022",
+                            "note": "Full-bodied and tannic."
+                        },
+                        "midRange": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        },
+                        "exclusive": {
+                            "name": "Brangero Nebbiolo D\u2019Alba Quattro Cloni DOC, Piemonte",
+                            "grape": "Nebbiolo",
+                            "price": "185,-",
+                            "vintage": "2021",
+                            "note": "Elegant and complex red."
+                        }
+                    }
+                },
+                {
+                    "dish": "Insalata caprese",
+                    "price": 215,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Primi",
+            "items": [
+                {
+                    "dish": "Linguine alle vongole",
+                    "price": 260,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Risotto agli asparagi",
+                    "price": 245,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Ravioli al tartufo e parmigiano",
+                    "price": 260,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Gnocchi ripieni",
+                    "price": 240,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Lasagna della casa",
+                    "price": 265,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Conti Uttieri Ancile Aglianico IGT, Campania",
+                            "grape": "Aglianico",
+                            "price": "145,-",
+                            "vintage": "2022",
+                            "note": "Full-bodied and tannic."
+                        },
+                        "midRange": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        },
+                        "exclusive": {
+                            "name": "Brangero Nebbiolo D\u2019Alba Quattro Cloni DOC, Piemonte",
+                            "grape": "Nebbiolo",
+                            "price": "185,-",
+                            "vintage": "2021",
+                            "note": "Elegant and complex red."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Secondi",
+            "items": [
+                {
+                    "dish": "Salsicce al vino",
+                    "price": 285,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Costolette di maiale",
+                    "price": 365,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Pizze rosse",
+            "items": [
+                {
+                    "dish": "Margherita",
+                    "price": 195,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Napoletana",
+                    "price": 220,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Capricciosa",
+                    "price": 245,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Parma",
+                    "price": 270,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Indiavolata",
+                    "price": 255,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Quattro stagioni",
+                    "price": 250,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "\u2018Nduja",
+                    "price": 245,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "La Carnivora",
+                    "price": 255,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Parmigiana",
+                    "price": 235,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Caronte",
+                    "price": 270,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Mare e monti",
+                    "price": 240,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Pizze bianche",
+            "items": [
+                {
+                    "dish": "Ai quattro formaggi",
+                    "price": 250,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Crudo",
+                    "price": 290,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Tartufo e parma",
+                    "price": 275,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Boscaiola",
+                    "price": 255,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Gladiatore",
+                    "price": 265,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "category": "Dolci",
+            "items": [
+                {
+                    "dish": "Tiramis\u00f9",
+                    "price": 160,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Panna cotta",
+                    "price": 145,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Mousse al cioccolato",
+                    "price": 150,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Affogato al caff\u00e8",
+                    "price": 80,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Gelati e sorbetti",
+                    "price": 140,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Fragola e limoncello",
+                    "price": 145,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                },
+                {
+                    "dish": "Sgroppino Paradiso",
+                    "price": 145,
+                    "pairings": {
+                        "byGlass": {
+                            "name": "Prosecco ITA DOC Spumante Brut, Veneto",
+                            "grape": "Glera",
+                            "price": "150,-",
+                            "vintage": "NV",
+                            "note": "Fresh and fruity bubbles."
+                        },
+                        "midRange": {
+                            "name": "Antinori Santa Cristina Pinot Grigio DOC, Toscana",
+                            "grape": "Pinot Grigio",
+                            "price": "155,-",
+                            "vintage": "2023",
+                            "note": "Crisp and refreshing."
+                        },
+                        "exclusive": {
+                            "name": "Bertani Valpolicella Valpantena DOC, Veneto",
+                            "grape": "Corvina",
+                            "price": "170,-",
+                            "vintage": "2022",
+                            "note": "Fruity and smooth."
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
