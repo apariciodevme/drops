@@ -18,7 +18,8 @@ const emptyWine: WinePairing = {
     grape: '',
     vintage: '',
     price: '',
-    note: ''
+    note: '',
+    keywords: []
 };
 
 const emptyPairings: Pairings = {
@@ -203,6 +204,11 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                     {renderInput("Note", item.pairings[tier].note, (val) => {
                                                         const newItem = { ...item };
                                                         newItem.pairings[tier].note = val;
+                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                    })}
+                                                    {renderInput("Keywords (comma separated)", (item.pairings[tier].keywords || []).join(', '), (val) => {
+                                                        const newItem = { ...item };
+                                                        newItem.pairings[tier].keywords = val.split(',').map(s => s.trim()).filter(s => s);
                                                         updateItem(category.originalIndex, item.originalIndex, newItem);
                                                     })}
                                                 </div>

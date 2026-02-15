@@ -231,6 +231,16 @@ export default function SommelierApp() {
                                             </div>
                                         </div>
 
+                                        {selectedItem.pairings[selectedTier].keywords && selectedItem.pairings[selectedTier].keywords.length > 0 && (
+                                            <div className="flex flex-wrap justify-center gap-2 py-4">
+                                                {selectedItem.pairings[selectedTier].keywords.map((keyword, i) => (
+                                                    <span key={i} className="px-3 py-1 bg-secondary text-primary text-[11px] font-semibold uppercase tracking-wider rounded-full">
+                                                        {keyword}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+
                                         <p className="text-[17px] text-muted-foreground leading-relaxed italic">
                                             "{selectedItem.pairings[selectedTier].note}"
                                         </p>
