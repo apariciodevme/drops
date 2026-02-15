@@ -9,20 +9,87 @@ export async function authenticateAndLoad(code: string) {
     }
 
     try {
-        const { data: tenant, error } = await supabase
+        // 1. Fetch Tenant
+        const { data: tenant, error: tenantError } = await supabase
             .from('tenants')
             .select('*')
             .eq('access_code', code)
             .single();
 
-        if (error || !tenant) {
+        if (tenantError || !tenant) {
             return { error: 'Invalid access code.' };
         }
 
-        // Return the actual data structure
+        // 2. Fetch Relational Menu Data
+        // Doing strict ordered fetching is easier with separate queries or ordering in app
+        // But let's try a nested fetch sorted by sort_order
+        const { data: categories, error: menuError } = await supabase
+            .from('categories')
+            .select(`
+                name,
+                sort_order,
+                menu_items (
+                    dish,
+                    price,
+                    sort_order,
+                    wine_pairings (
+                        tier,
+                        name,
+                        vintage,
+                        grape,
+                        price,
+                        note,
+                        keywords
+                    )
+                )
+            `)
+            .eq('tenant_id', tenant.id)
+            .order('sort_order', { ascending: true });
+
+        if (menuError) {
+            console.error('Menu fetch error:', menuError);
+            return { error: 'Failed to load menu.' };
+        }
+
+        // 3. Transform to RestaurantData structure
+        const menu = categories.map((cat: any) => ({
+            category: cat.name,
+            items: (cat.menu_items || [])
+                .sort((a: any, b: any) => a.sort_order - b.sort_order)
+                .map((item: any) => {
+                    // Reconstruct pairings object
+                    const pairings: any = {
+                        byGlass: {},
+                        midRange: {},
+                        exclusive: {}
+                    };
+
+                    if (item.wine_pairings) {
+                        item.wine_pairings.forEach((p: any) => {
+                            if (pairings[p.tier] !== undefined) {
+                                pairings[p.tier] = {
+                                    name: p.name,
+                                    vintage: p.vintage,
+                                    grape: p.grape,
+                                    price: p.price,
+                                    note: p.note,
+                                    keywords: p.keywords
+                                };
+                            }
+                        });
+                    }
+
+                    return {
+                        dish: item.dish,
+                        price: item.price,
+                        pairings: pairings
+                    };
+                })
+        }));
+
         const restaurantData: RestaurantData = {
             restaurantName: tenant.name,
-            menu: tenant.menu as any // Casting as any because specific array type check might be complex at runtime, but structure is validated
+            menu: menu
         };
 
         return {

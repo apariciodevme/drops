@@ -96,16 +96,23 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
             )
     })).filter(category => category.items.length > 0);
 
-    // Simple recursive input for deep objects
     const renderInput = (label: string, value: string | number, onChange: (val: string) => void, type = "text") => (
         <div className="flex flex-col space-y-1">
             <label className="text-xs font-semibold text-gray-500 uppercase">{label}</label>
-            <input
-                type={type}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            {type === "textarea" ? (
+                <textarea
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
+                />
+            ) : (
+                <input
+                    type={type}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            )}
         </div>
     );
 
@@ -205,12 +212,13 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                         const newItem = { ...item };
                                                         newItem.pairings[tier].note = val;
                                                         updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    })}
-                                                    {renderInput("Keywords (comma separated)", (item.pairings[tier].keywords || []).join(', '), (val) => {
+                                                    }, "textarea")}
+                                                    {renderInput("Description", item.pairings[tier].description || '', (val) => {
                                                         const newItem = { ...item };
-                                                        newItem.pairings[tier].keywords = val.split(',').map(s => s.trim()).filter(s => s);
+                                                        newItem.pairings[tier].description = val;
                                                         updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    })}
+                                                    }, "textarea")}
+                                                    {/* Keywords section removed */}
                                                 </div>
                                             ))}
                                         </div>

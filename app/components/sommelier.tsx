@@ -241,9 +241,17 @@ export default function SommelierApp() {
                                             </div>
                                         )}
 
-                                        <p className="text-[17px] text-muted-foreground leading-relaxed italic">
-                                            "{selectedItem.pairings[selectedTier].note}"
-                                        </p>
+                                        <div className="pt-2">
+                                            <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-2">Note</h3>
+                                            <p className="text-[17px] text-foreground leading-relaxed mb-6">
+                                                {selectedItem.pairings[selectedTier].note}
+                                            </p>
+
+                                            <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest mb-2">About the Wine</h3>
+                                            <p className="text-[15px] text-muted-foreground leading-relaxed">
+                                                {selectedItem.pairings[selectedTier].description || "No description available yet."}
+                                            </p>
+                                        </div>
                                     </motion.div>
                                 </div>
                                 {/* Subtle blur footer accent */}

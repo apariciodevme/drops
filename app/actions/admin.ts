@@ -16,27 +16,68 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
     }
 
     try {
-        console.log(`[Admin] Updating menu for tenant: ${tenantId}, Menu items: ${validation.data.menu.length}`);
+        console.log(`[Admin] Starting relational update for tenant: ${tenantId}`);
 
-        const { data: updatedData, error } = await supabase
-            .from('tenants')
-            .update({ menu: validation.data.menu })
-            .eq('id', tenantId)
-            .select();
+        // 1. Delete existing structure (Cascade will remove items and pairings)
+        const { error: deleteError } = await supabase
+            .from('categories')
+            .delete()
+            .eq('tenant_id', tenantId);
 
-        if (error) {
-            console.error('[Admin] Supabase update error:', error);
-            return { error: 'Failed to update menu in database: ' + error.message };
+        if (deleteError) {
+            console.error('[Admin] Delete error:', deleteError);
+            throw new Error('Failed to clear old menu data.');
         }
 
-        if (!updatedData || updatedData.length === 0) {
-            console.error('[Admin] No rows updated. Check Tenant ID or RLS policies.');
-            return { error: 'No changes saved. Access denied or Tenant not found.' };
+        // 2. Re-insert full tree
+        for (let catIndex = 0; catIndex < validation.data.menu.length; catIndex++) {
+            const category = validation.data.menu[catIndex];
+
+            const { data: catRecord, error: catError } = await supabase
+                .from('categories')
+                .insert({
+                    tenant_id: tenantId,
+                    name: category.category,
+                    sort_order: catIndex
+                })
+                .select()
+                .single();
+
+            if (catError || !catRecord) throw new Error('Failed to insert category: ' + catError?.message);
+
+            for (let itemIndex = 0; itemIndex < category.items.length; itemIndex++) {
+                const item = category.items[itemIndex];
+
+                const { data: itemRecord, error: itemError } = await supabase
+                    .from('menu_items')
+                    .insert({
+                        category_id: catRecord.id,
+                        dish: item.dish,
+                        price: item.price.toString(),
+                        sort_order: itemIndex
+                    })
+                    .select()
+                    .single();
+
+                if (itemError || !itemRecord) throw new Error('Failed to insert item: ' + itemError?.message);
+
+                const tiers = ['byGlass', 'midRange', 'exclusive'] as const;
+                const pairingsToInsert = tiers.map(tier => ({
+                    menu_item_id: itemRecord.id,
+                    tier: tier,
+                    ...item.pairings[tier],
+                    description: item.pairings[tier].description || null // ensure it's handled
+                }));
+
+                const { error: pairError } = await supabase
+                    .from('wine_pairings')
+                    .insert(pairingsToInsert);
+
+                if (pairError) throw new Error('Failed to insert pairings: ' + pairError.message);
+            }
         }
 
-        console.log('[Admin] Update successful. Rows affected:', updatedData.length);
-        return { success: true };
-
+        console.log('[Admin] Relational update successful.');
         return { success: true };
     } catch (error) {
         console.error('Update menu error:', error);

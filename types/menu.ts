@@ -5,6 +5,7 @@ export const WinePairingSchema = z.object({
     vintage: z.string(),
     price: z.string(),
     note: z.string(),
+    description: z.string().optional(), // Added description
     grape: z.string(),
     keywords: z.array(z.string()).optional()
 });

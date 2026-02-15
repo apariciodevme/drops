@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:palate": "npx tsx scripts/sync-menu.ts palate",
+    "sync:villa": "npx tsx scripts/sync-menu.ts villa_paradiso",
+    "sync:pastis": "npx tsx scripts/sync-menu.ts pastis"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.95.3",
