@@ -75,7 +75,7 @@ export default function SommelierApp() {
                         }}
                         className="text-xs font-medium bg-secondary/80 hover:bg-secondary px-3 py-1.5 rounded-full text-foreground transition-all duration-200"
                     >
-                        Switch
+                        Log Out
                     </button>
                 </div>
                 <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground font-serif italic">

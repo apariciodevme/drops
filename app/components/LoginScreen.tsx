@@ -38,11 +38,11 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
             if (result.tenantId) {
                 saveSession({
                     tenantId: result.tenantId,
-                    restaurantName: result.restaurantName || "Sommelier",
+                    restaurantName: result.restaurantName || "Drops",
                     menuData: result.data
                 });
             }
-            onLogin(result.data, result.restaurantName || "Sommelier", result.tenantId);
+            onLogin(result.data, result.restaurantName || "Drops", result.tenantId);
         } else {
             setError(result?.error || 'Invalid code');
             setIsLoading(false);

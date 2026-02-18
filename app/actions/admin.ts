@@ -1,6 +1,6 @@
 'use server';
 
-import { supabase } from '@/app/lib/supabase';
+import { supabaseAdmin } from '@/app/lib/supabase-admin';
 import { RestaurantData, RestaurantDataSchema } from '@/types/menu';
 import { revalidateTag } from 'next/cache';
 
@@ -20,7 +20,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
         console.log(`[Admin] Starting sequential update for tenant: ${tenantId}`);
 
         // 1. Delete existing structure (Cascade will remove items and pairings)
-        const { error: deleteError } = await supabase
+        const { error: deleteError } = await supabaseAdmin
             .from('categories')
             .delete()
             .eq('tenant_id', tenantId);
@@ -34,7 +34,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
         for (let catIndex = 0; catIndex < validation.data.menu.length; catIndex++) {
             const category = validation.data.menu[catIndex];
 
-            const { data: catRecord, error: catError } = await supabase
+            const { data: catRecord, error: catError } = await supabaseAdmin
                 .from('categories')
                 .insert({
                     tenant_id: tenantId,
@@ -49,7 +49,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
             for (let itemIndex = 0; itemIndex < category.items.length; itemIndex++) {
                 const item = category.items[itemIndex];
 
-                const { data: itemRecord, error: itemError } = await supabase
+                const { data: itemRecord, error: itemError } = await supabaseAdmin
                     .from('menu_items')
                     .insert({
                         category_id: catRecord.id,
@@ -71,7 +71,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
                     keywords: item.pairings[tier].keywords || []
                 }));
 
-                const { error: pairError } = await supabase
+                const { error: pairError } = await supabaseAdmin
                     .from('wine_pairings')
                     .insert(pairingsToInsert);
 

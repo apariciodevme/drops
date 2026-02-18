@@ -1,1 +1,1 @@
-This is a backup of the palate sommelier project.
+This is a backup of the Drops project.

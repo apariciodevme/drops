@@ -2,7 +2,7 @@
 
 import { RestaurantData } from '@/types/menu';
 
-const SESSION_KEY = 'palate_sommelier_session';
+const SESSION_KEY = 'drops_session';
 
 export interface SessionData {
     tenantId: string;

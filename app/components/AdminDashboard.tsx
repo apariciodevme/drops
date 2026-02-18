@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { RestaurantData, MenuCategory, MenuItem, Pairings, WinePairing } from '@/types/menu';
+import React, { useState, useMemo, memo } from 'react';
+import { RestaurantData, MenuItem, Pairings, WinePairing } from '@/types/menu';
 import { updateMenu } from '../actions/admin';
 import { saveSession } from '@/app/lib/session';
 import { motion, AnimatePresence } from 'framer-motion';
+
+// --- Types & Constants ---
 
 interface AdminDashboardProps {
     initialData: RestaurantData;
@@ -34,12 +36,53 @@ const emptyItem: MenuItem = {
     pairings: { ...emptyPairings }
 };
 
+// --- Helper Components ---
+
+interface MenuInputProps {
+    label: string;
+    value: string | number;
+    onChange: (val: string) => void;
+    type?: "text" | "textarea";
+}
+
+const MenuInput = memo(({ label, value, onChange, type = "text" }: MenuInputProps) => (
+    <div className="flex flex-col space-y-1">
+        <label className="text-xs font-semibold text-gray-500 uppercase">{label}</label>
+        {type === "textarea" ? (
+            <textarea
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
+            />
+        ) : (
+            <input
+                type={type}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+        )}
+    </div>
+));
+MenuInput.displayName = 'MenuInput';
+
+// --- Main Component ---
+
 export default function AdminDashboard({ initialData, tenantId, restaurantName, onLogout }: AdminDashboardProps) {
     const [data, setData] = useState<RestaurantData>(initialData);
     const [isSaving, setIsSaving] = useState(false);
     const [message, setMessage] = useState('');
-
     const [searchTerm, setSearchTerm] = useState('');
+    // Initialize all categories as closed by default
+    const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(
+        initialData.menu.reduce((acc, cat) => ({ ...acc, [cat.category]: false }), {})
+    );
+
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const toggleCategory = (category: string) => {
+        setOpenCategories(prev => ({ ...prev, [category]: !prev[category] }));
+    };
 
     const handleSave = async () => {
         setIsSaving(true);
@@ -61,180 +104,282 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
     };
 
     const updateItem = (catIndex: number, itemIndex: number, newItem: MenuItem) => {
-        const newData = { ...data };
+        // Use structuredClone for deep copy (available in modern environments)
+        // Fallback to JSON parse/stringify if needed, but Next.js 16 should support it.
+        const newData = structuredClone(data);
         newData.menu[catIndex].items[itemIndex] = newItem;
         setData(newData);
     };
 
     const addItem = (catIndex: number) => {
-        const newData = { ...data };
-        // Deep copy empty item to avoid reference issues
-        const newItem = JSON.parse(JSON.stringify(emptyItem));
+        const newData = structuredClone(data);
+        const newItem = structuredClone(emptyItem);
         newData.menu[catIndex].items.push(newItem);
         setData(newData);
     };
 
     const removeItem = (catIndex: number, itemIndex: number) => {
         if (!confirm('Are you sure you want to delete this dish?')) return;
-        const newData = { ...data };
+        const newData = structuredClone(data);
         newData.menu[catIndex].items.splice(itemIndex, 1);
         setData(newData);
     };
 
-    const filteredMenu = data.menu.map((category, catIndex) => ({
-        ...category,
-        originalIndex: catIndex,
-        items: category.items.map((item, itemIndex) => ({ ...item, originalIndex: itemIndex }))
-            .filter(item =>
-                item.dish.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.price.toString().includes(searchTerm) ||
-                Object.values(item.pairings).some(pairing =>
-                    pairing.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    pairing.grape.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    pairing.vintage.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredMenu = useMemo(() => {
+        return data.menu.map((category, catIndex) => ({
+            ...category,
+            originalIndex: catIndex,
+            items: category.items.map((item, itemIndex) => ({ ...item, originalIndex: itemIndex }))
+                .filter(item =>
+                    item.dish.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    item.price.toString().includes(searchTerm) ||
+                    Object.values(item.pairings).some(pairing =>
+                        pairing.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        pairing.grape.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        pairing.vintage.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
                 )
-            )
-    })).filter(category => category.items.length > 0);
+        })).filter(category => category.items.length > 0);
+    }, [data, searchTerm]);
 
-    const renderInput = (label: string, value: string | number, onChange: (val: string) => void, type = "text") => (
-        <div className="flex flex-col space-y-1">
-            <label className="text-xs font-semibold text-gray-500 uppercase">{label}</label>
-            {type === "textarea" ? (
-                <textarea
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[80px]"
-                />
-            ) : (
-                <input
-                    type={type}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                    className="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-            )}
-        </div>
-    );
+    const scrollToCategory = (category: string) => {
+        const element = document.getElementById(`category-${category}`);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Ensure it's open
+            setOpenCategories(prev => ({ ...prev, [category]: true }));
+            setMobileMenuOpen(false); // Close mobile menu after selection
+        }
+    };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8 font-sans">
-            <header className="flex flex-col gap-4 mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-200 sticky top-4 z-40">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full md:w-auto">
-                        <a href="/" className="text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                            Back to App
-                        </a>
-                        <h1 className="text-xl md:text-2xl font-bold text-gray-900">{restaurantName} <span className="text-gray-400 font-light">Manager</span></h1>
+        <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row font-sans relative">
+
+            {/* Mobile Header Bar */}
+            <div className="md:hidden bg-white border-b border-gray-200 p-4 sticky top-0 z-50 flex items-center justify-between">
+                <h1 className="text-lg font-bold text-gray-900">{restaurantName}</h1>
+                <button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                >
+                    {mobileMenuOpen ? (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                    ) : (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    )}
+                </button>
+            </div>
+
+            {/* Sidebar Navigation (Desktop: Sidebar, Mobile: Drawer) */}
+            <aside className={`
+                bg-white border-r border-gray-200 
+                w-64 flex-shrink-0 
+                fixed md:sticky top-[60px] md:top-0 h-[calc(100vh-60px)] md:h-screen 
+                overflow-y-auto z-40 transition-transform duration-300 ease-in-out
+                ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            `}>
+                <div className="p-4 border-b border-gray-100 hidden md:block">
+                    <h1 className="text-xl font-bold text-gray-900">{restaurantName} <span className="text-gray-400 font-light block text-sm">Manager Dashboard</span></h1>
+                </div>
+
+                <nav className="p-4 space-y-1">
+                    <a href="/" className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-100 hover:text-gray-900 transition-colors mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        Back to App
+                    </a>
+
+                    <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 mt-6 px-3">Sections</div>
+                    {data.menu.map(cat => (
+                        <button
+                            key={cat.category}
+                            onClick={() => scrollToCategory(cat.category)}
+                            className="w-full text-left px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-blue-50 hover:text-blue-700 transition-colors truncate"
+                        >
+                            {cat.category}
+                        </button>
+                    ))}
+                </nav>
+
+                <div className="p-4 mt-auto border-t border-gray-100">
+                    <button
+                        onClick={onLogout}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        Logout
+                    </button>
+                </div>
+            </aside>
+
+            {/* Overlay for mobile when menu is open */}
+            {mobileMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-black/20 z-30 md:hidden top-[60px]"
+                    onClick={() => setMobileMenuOpen(false)}
+                />
+            )}
+
+            {/* Main Content */}
+            <main className="flex-1 p-4 md:p-8 overflow-y-auto h-[calc(100vh-60px)] md:h-screen scroll-smooth">
+                {/* Header Actions */}
+                <header className="flex flex-col md:flex-row gap-4 mb-8 sticky top-0 md:top-0 bg-gray-50/90 backdrop-blur-sm z-20 py-4 md:py-0 md:static">
+                    <div className="flex-1 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Search menu items, wines..."
+                            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm shadow-sm"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
-                        {message && <span className={`text-sm font-medium ${message.includes('Error') ? 'text-red-600' : 'text-green-600'} w-full md:w-auto text-right`}>{message}</span>}
+
+                    <div className="flex items-center gap-3">
+                        {message && (
+                            <motion.span
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className={`text-sm font-medium px-3 py-1.5 rounded-full ${message.includes('Error') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}
+                            >
+                                {message}
+                            </motion.span>
+                        )}
                         <button
                             onClick={handleSave}
                             disabled={isSaving}
-                            className="flex-1 md:flex-none bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm whitespace-nowrap"
+                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all shadow-sm active:scale-95 disabled:opacity-50 disabled:active:scale-100 flex items-center gap-2 ${isSaving ? 'animate-pulse' : ''}`}
                         >
-                            {isSaving ? 'Saving...' : 'Save Changes'}
-                        </button>
-                        <button
-                            onClick={onLogout}
-                            className="px-3 py-2 text-gray-500 hover:text-gray-700 font-medium text-sm bg-gray-100 md:bg-transparent rounded-lg md:rounded-none transition-colors"
-                        >
-                            Logout
+                            {isSaving ? (
+                                <>
+                                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Saving...
+                                </>
+                            ) : 'Save Changes'}
                         </button>
                     </div>
-                </div>
+                </header>
 
-                {/* Search Bar */}
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Search menu items, wines, grapes..."
-                        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-            </header>
+                <div className="space-y-8 max-w-4xl mx-auto pb-20">
+                    {filteredMenu.map((category) => (
+                        <div
+                            key={category.originalIndex}
+                            id={`category-${category.category}`}
+                            className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden"
+                        >
+                            <button
+                                onClick={() => toggleCategory(category.category)}
+                                className="w-full flex items-center justify-between p-6 bg-white hover:bg-gray-50 transition-colors text-left"
+                            >
+                                <h2 className="text-xl font-bold text-gray-800">{category.category}</h2>
+                                <svg
+                                    className={`w-6 h-6 text-gray-400 transform transition-transform duration-200 ${openCategories[category.category] ? 'rotate-180' : ''}`}
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
 
-            <div className="space-y-12 max-w-5xl mx-auto">
-                {filteredMenu.map((category) => (
-                    <div key={category.originalIndex} className="space-y-4">
-                        <h2 className="text-xl font-bold text-gray-800 border-b pb-2">{category.category}</h2>
-                        <div className="grid gap-6">
-                            {category.items.map((item) => (
-                                <div key={item.originalIndex} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
-                                    <div className="flex justify-between items-start">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full pr-8">
-                                            {renderInput("Dish Name", item.dish, (val) => updateItem(category.originalIndex, item.originalIndex, { ...item, dish: val }))}
-                                            {renderInput("Price", item.price, (val) => updateItem(category.originalIndex, item.originalIndex, { ...item, price: val }))}
-                                        </div>
-                                        <button onClick={() => removeItem(category.originalIndex, item.originalIndex)} className="text-red-500 hover:text-red-700 p-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
-                                        </button>
-                                    </div>
+                            <AnimatePresence>
+                                {openCategories[category.category] && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="p-6 pt-0 space-y-6 border-t border-gray-100">
+                                            {category.items.map((item) => (
+                                                <div key={item.originalIndex} className="bg-gray-50 rounded-xl border border-gray-200 p-6 space-y-6 relative group">
+                                                    <button
+                                                        onClick={() => removeItem(category.originalIndex, item.originalIndex)}
+                                                        className="absolute top-4 right-4 text-gray-400 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                                                        title="Delete Dish"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
+                                                    </button>
 
-                                    {/* Pairings */}
-                                    <div className="bg-gray-50 p-4 rounded-lg border border-gray-100 space-y-4">
-                                        <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wide">Wine Pairings</h3>
-                                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                            {(['byGlass', 'midRange', 'exclusive'] as const).map((tier) => (
-                                                <div key={tier} className="space-y-2">
-                                                    <div className="text-xs font-bold text-blue-600 uppercase mb-2 border-b border-blue-100 pb-1">
-                                                        {tier === 'byGlass' ? 'By The Glass' : tier === 'midRange' ? 'Mid-Range' : 'Exclusive'}
+                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full pr-12">
+                                                        <div className="md:col-span-2">
+                                                            <MenuInput label="Dish Name" value={item.dish} onChange={(val) => updateItem(category.originalIndex, item.originalIndex, { ...item, dish: val })} />
+                                                        </div>
+                                                        <MenuInput label="Price" value={item.price} onChange={(val) => updateItem(category.originalIndex, item.originalIndex, { ...item, price: val })} />
                                                     </div>
-                                                    {renderInput("Name", item.pairings[tier].name, (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].name = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    })}
-                                                    {renderInput("Grape", item.pairings[tier].grape, (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].grape = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    })}
-                                                    {renderInput("Vintage", item.pairings[tier].vintage, (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].vintage = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    }, "text")}
-                                                    {renderInput("Price", item.pairings[tier].price, (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].price = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    })}
-                                                    {renderInput("Note", item.pairings[tier].note, (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].note = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    }, "textarea")}
-                                                    {renderInput("Description", item.pairings[tier].description || '', (val) => {
-                                                        const newItem = { ...item };
-                                                        newItem.pairings[tier].description = val;
-                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                    }, "textarea")}
-                                                    {/* Keywords section removed */}
+
+                                                    {/* Pairings */}
+                                                    <div className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm space-y-4">
+                                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-8a2 2 0 012-2h14a2 2 0 012 2v8M12 3v18" /></svg>
+                                                            Wine Pairings
+                                                        </h3>
+                                                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+                                                            {(['byGlass', 'midRange', 'exclusive'] as const).map((tier) => (
+                                                                <div key={tier} className="space-y-3 pt-4 lg:pt-0 lg:pl-6 first:pl-0 first:pt-0">
+                                                                    <div className={`text-xs font-bold uppercase mb-2 pb-1 border-b ${tier === 'byGlass' ? 'text-blue-600 border-blue-100' :
+                                                                        tier === 'midRange' ? 'text-purple-600 border-purple-100' : 'text-amber-600 border-amber-100'
+                                                                        }`}>
+                                                                        {tier === 'byGlass' ? 'By The Glass' : tier === 'midRange' ? 'Mid-Range' : 'Exclusive'}
+                                                                    </div>
+                                                                    <MenuInput label="Name" value={item.pairings[tier].name} onChange={(val) => {
+                                                                        const newItem = structuredClone(item);
+                                                                        newItem.pairings[tier].name = val;
+                                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                    }} />
+                                                                    <MenuInput label="Grape" value={item.pairings[tier].grape} onChange={(val) => {
+                                                                        const newItem = structuredClone(item);
+                                                                        newItem.pairings[tier].grape = val;
+                                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                    }} />
+                                                                    <div className="grid grid-cols-2 gap-2">
+                                                                        <MenuInput label="Vintage" value={item.pairings[tier].vintage} onChange={(val) => {
+                                                                            const newItem = structuredClone(item);
+                                                                            newItem.pairings[tier].vintage = val;
+                                                                            updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                        }} />
+                                                                        <MenuInput label="Price" value={item.pairings[tier].price} onChange={(val) => {
+                                                                            const newItem = structuredClone(item);
+                                                                            newItem.pairings[tier].price = val;
+                                                                            updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                        }} />
+                                                                    </div>
+                                                                    <MenuInput type="textarea" label="Note" value={item.pairings[tier].note} onChange={(val) => {
+                                                                        const newItem = structuredClone(item);
+                                                                        newItem.pairings[tier].note = val;
+                                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                    }} />
+                                                                    <MenuInput type="textarea" label="Description" value={item.pairings[tier].description || ''} onChange={(val) => {
+                                                                        const newItem = structuredClone(item);
+                                                                        newItem.pairings[tier].description = val;
+                                                                        updateItem(category.originalIndex, item.originalIndex, newItem);
+                                                                    }} />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             ))}
+                                            <button
+                                                onClick={() => addItem(category.originalIndex)}
+                                                className="w-full py-4 bg-white hover:bg-gray-50 text-gray-500 font-medium rounded-xl border-2 border-dashed border-gray-300 transition-all hover:border-blue-400 hover:text-blue-600 flex items-center justify-center gap-2 group"
+                                            >
+                                                <span className="bg-gray-100 group-hover:bg-blue-100 text-gray-500 group-hover:text-blue-600 rounded-full w-8 h-8 flex items-center justify-center transition-colors font-bold text-lg">+</span>
+                                                Add Dish to {category.category}
+                                            </button>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
-                            <button
-                                onClick={() => addItem(category.originalIndex)}
-                                className="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium rounded-xl border border-dashed border-gray-300 transition-colors flex items-center justify-center gap-2"
-                            >
-                                <span className="text-xl">+</span> Add Dish to {category.category}
-                            </button>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            </main>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 'use server';
 
-import { supabase } from '@/app/lib/supabase';
-import { RestaurantData, MenuItem, WinePairing, Pairings } from '@/types/menu';
+import { supabaseAdmin } from '@/app/lib/supabase-admin';
+import { RestaurantData, RestaurantDataSchema, Pairings } from '@/types/menu';
 import { unstable_cache } from 'next/cache';
 
 // Database response interfaces
@@ -31,7 +31,7 @@ interface DBCategory {
 // Cached menu fetcher
 const getCachedMenu = unstable_cache(
     async (tenantId: string) => {
-        const { data: categories, error } = await supabase
+        const { data: categories, error } = await supabaseAdmin
             .from('categories')
             .select(`
             name,
@@ -52,6 +52,7 @@ const getCachedMenu = unstable_cache(
             )
         `)
             .eq('tenant_id', tenantId)
+            //.order('sort_order', { ascending: true }); // Remove if causing issues, but here it's SELECT not INSERT
             .order('sort_order', { ascending: true });
 
         if (error) throw error;
@@ -67,8 +68,8 @@ export async function authenticateAndLoad(code: string) {
     }
 
     try {
-        // 1. Fetch Tenant
-        const { data: tenant, error: tenantError } = await supabase
+        // 1. Fetch Tenant (Admin Bypass)
+        const { data: tenant, error: tenantError } = await supabaseAdmin
             .from('tenants')
             .select('*')
             .eq('access_code', code)
