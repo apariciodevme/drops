@@ -65,20 +65,28 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
     }, [code, isLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-sans text-foreground overflow-hidden relative transition-colors duration-500">
-            {/* Ambient Background Blobs - Removed for cleaner look */}
+        <div className="min-h-screen bg-[#F5F5F7] flex flex-col items-center justify-center p-6 font-sans text-[#1d1d1f] overflow-hidden relative">
+            {/* Ambient Background Blobs */}
+
+            {/*
+            <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-200/40 rounded-full blur-[100px] pointer-events-none mix-blend-multiply" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-200/40 rounded-full blur-[100px] pointer-events-none mix-blend-multiply" />
+            <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-pink-200/40 rounded-full blur-[80px] pointer-events-none mix-blend-multiply" />
+ 
+            
+            */}
 
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-[320px] relative z-10 bg-card/40 dark:bg-card/60 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/20 rounded-[2rem] p-8"
+                className="w-full max-w-[320px] relative z-10 bg-white/40 backdrop-blur-xl border border-white/50 shadow-xl shadow-black/5 rounded-[2rem] p-8"
             >
                 <div className="text-center space-y-2 mb-8">
-                    <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+                    <h1 className="text-3xl font-semibold tracking-tight text-[#1d1d1f]">
                         Drops.
                     </h1>
-                    <p className="text-muted-foreground text-[15px] font-medium">
+                    <p className="text-[#1d1d1f]/60 text-[15px] font-medium">
                         Enter access code
                     </p>
                 </div>
@@ -88,7 +96,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                     {[0, 1, 2, 3].map((i) => (
                         <div
                             key={i}
-                            className={`w-3.5 h-3.5 rounded-full border border-primary/20 transition-all duration-200 ${i < code.length ? 'bg-primary scale-110 border-primary' : 'bg-transparent scale-100'
+                            className={`w-3.5 h-3.5 rounded-full border border-[#1d1d1f]/20 transition-all duration-200 ${i < code.length ? 'bg-[#1d1d1f] scale-110 border-[#1d1d1f]' : 'bg-transparent scale-100'
                                 }`}
                         />
                     ))}
@@ -102,7 +110,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                             exit={{ opacity: 0, y: -10, height: 0 }}
                             className="text-center mb-6"
                         >
-                            <p className="text-destructive text-[14px] font-medium tracking-wide bg-destructive/10 px-3 py-1.5 rounded-full border border-destructive/20 inline-block">
+                            <p className="text-rose-600 text-[14px] font-medium tracking-wide bg-rose-50 px-3 py-1.5 rounded-full border border-rose-100 inline-block">
                                 {error}
                             </p>
                         </motion.div>
@@ -115,7 +123,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                         <button
                             key={num}
                             onClick={() => handleNumberClick(num.toString())}
-                            className="w-16 h-16 rounded-full bg-white/50 dark:bg-white/5 border border-white/60 dark:border-white/10 text-xl font-medium text-foreground hover:bg-white/80 dark:hover:bg-white/10 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
+                            className="w-16 h-16 rounded-full bg-white/50 border border-white/60 text-xl font-medium text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
                             disabled={isLoading}
                         >
                             {num}
@@ -124,14 +132,14 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                     <div className="w-16 h-16 mx-auto" /> {/* Empty slot */}
                     <button
                         onClick={() => handleNumberClick('0')}
-                        className="w-16 h-16 rounded-full bg-white/50 dark:bg-white/5 border border-white/60 dark:border-white/10 text-xl font-medium text-foreground hover:bg-white/80 dark:hover:bg-white/10 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
+                        className="w-16 h-16 rounded-full bg-white/50 border border-white/60 text-xl font-medium text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
                         disabled={isLoading}
                     >
                         0
                     </button>
                     <button
                         onClick={handleDelete}
-                        className="w-16 h-16 rounded-full text-lg font-medium text-muted-foreground hover:text-foreground active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation mx-auto"
+                        className="w-16 h-16 rounded-full text-lg font-medium text-[#1d1d1f]/50 hover:text-[#1d1d1f] active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation mx-auto"
                         disabled={isLoading}
                     >
                         ⌫
