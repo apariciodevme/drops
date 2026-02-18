@@ -59,8 +59,8 @@ export default function SommelierApp() {
     return (
         <div className="min-h-screen bg-background text-foreground font-sans flex flex-col items-center transition-colors duration-500">
             {/* Minimal Header - Added pt-8 pb-4 to replace container padding */}
-            <header className="w-full text-center space-y-2 sticky top-0 z-40 pt-8 pb-4 backdrop-blur-xl bg-background/80 border-b border-white/20 px-4 sm:px-6 lg:px-8">
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            <header className="w-full text-center space-y-2 sticky top-0 z-40 pt-4 md:pt-8 pb-4 backdrop-blur-xl bg-background/80 border-b border-white/20 px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-end gap-2 md:absolute md:right-4 md:top-1/2 md:-translate-y-1/2 mb-2 md:mb-0">
                     <a
                         href="/admin"
                         className="text-xs font-medium text-muted-foreground hover:text-foreground transition-all duration-200"
