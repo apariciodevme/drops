@@ -135,7 +135,7 @@ export default function WineInventory({ tenantId }: WineInventoryProps) {
                                     <h3 className="font-bold text-lg text-foreground">{wine.name}</h3>
                                     <p className="text-sm text-muted-foreground">{wine.grape} • {wine.vintage}</p>
                                 </div>
-                                <span className={`text-xs px-2 py-1 rounded-full ${wine.stock_status === 'in_stock' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                                <span className={`text-xs px-2 py-1 rounded-full ${wine.stock_status === 'in_stock' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                     {wine.stock_status === 'in_stock' ? 'In Stock' : 'Out of Stock'}
                                 </span>
                             </div>
@@ -260,8 +260,8 @@ export default function WineInventory({ tenantId }: WineInventoryProps) {
                                                                 key={tag.id}
                                                                 onClick={() => toggleTag(tag.id)}
                                                                 className={`text-xs px-3 py-1.5 rounded-full border transition-all ${isSelected
-                                                                        ? 'bg-primary text-primary-foreground border-primary'
-                                                                        : 'bg-card text-foreground border-border hover:border-primary/50'
+                                                                    ? 'bg-primary text-primary-foreground border-primary'
+                                                                    : 'bg-card text-foreground border-border hover:border-primary/50'
                                                                     }`}
                                                             >
                                                                 {tag.name}

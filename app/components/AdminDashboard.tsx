@@ -6,6 +6,7 @@ import { updateMenu } from '../actions/admin';
 import { getTags, Tag } from '../actions/inventory';
 import { generatePairings } from '../actions/pairing';
 import { saveSession } from '@/app/lib/session';
+import { TIERS, TIER_KEYS } from '@/app/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import WineInventory from './WineInventory';
 
@@ -447,8 +448,8 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                                             key={tag.id}
                                                                                             onClick={() => toggleDishTag(category.originalIndex, item.originalIndex, tag.id)}
                                                                                             className={`text-[10px] px-2 py-0.5 rounded-full border transition-all ${isSelected
-                                                                                                    ? 'bg-primary text-primary-foreground border-primary'
-                                                                                                    : 'bg-card text-foreground border-border hover:border-primary/50'
+                                                                                                ? 'bg-primary text-primary-foreground border-primary'
+                                                                                                : 'bg-card text-foreground border-border hover:border-primary/50'
                                                                                                 }`}
                                                                                         >
                                                                                             {tag.name}
@@ -489,12 +490,12 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                 </div>
 
                                                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-border">
-                                                                    {(['byGlass', 'midRange', 'exclusive'] as const).map((tier) => (
+                                                                    {TIER_KEYS.map((tier) => (
                                                                         <div key={tier} className="space-y-3 pt-4 lg:pt-0 lg:pl-6 first:pl-0 first:pt-0">
                                                                             <div className={`text-xs font-bold uppercase mb-2 pb-1 border-b ${tier === 'byGlass' ? 'text-blue-600 border-blue-100 dark:text-blue-400 dark:border-blue-900' :
                                                                                 tier === 'midRange' ? 'text-purple-600 border-purple-100 dark:text-purple-400 dark:border-purple-900' : 'text-amber-600 border-amber-100 dark:text-amber-400 dark:border-amber-900'
                                                                                 }`}>
-                                                                                {tier === 'byGlass' ? 'By The Glass' : tier === 'midRange' ? 'Mid-Range' : 'Exclusive'}
+                                                                                {TIERS[tier]}
                                                                             </div>
                                                                             <MenuInput label="Name" value={item.pairings[tier].name} onChange={(val) => {
                                                                                 const newItem = structuredClone(item);

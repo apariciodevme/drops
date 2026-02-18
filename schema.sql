@@ -19,6 +19,7 @@ create table if not exists wines (
   grape text,
   vintage text,
   price numeric,
+  note text,
   description text,
   image_url text,
   stock_status text default 'in_stock' check (stock_status in ('in_stock', 'out_of_stock')),

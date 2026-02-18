@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { RestaurantData } from '@/types/menu';
 import { saveSession } from '@/app/lib/session';
 
+import { APP_NAME, ERROR_MESSAGES } from '@/app/lib/constants';
+
 interface LoginScreenProps {
     onLogin: (data: RestaurantData, name: string, tenantId?: string) => void;
 }
@@ -39,19 +41,19 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                 if (result.tenantId) {
                     saveSession({
                         tenantId: result.tenantId,
-                        restaurantName: result.restaurantName || "Drops",
+                        restaurantName: result.restaurantName || APP_NAME,
                         menuData: result.data
                     });
                 }
-                onLogin(result.data, result.restaurantName || "Drops", result.tenantId);
+                onLogin(result.data, result.restaurantName || APP_NAME, result.tenantId);
             } else {
-                setError(result?.error || 'Invalid code');
+                setError(result?.error || ERROR_MESSAGES.LOGIN_INVALID);
                 setIsLoading(false);
                 setCode('');
             }
         } catch (err) {
             console.error("Login error:", err);
-            setError('System error. Please try again.');
+            setError(ERROR_MESSAGES.GENERIC);
             setIsLoading(false);
             setCode('');
         }
@@ -84,7 +86,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
             >
                 <div className="text-center space-y-2 mb-8">
                     <h1 className="text-3xl font-semibold tracking-tight text-[#1d1d1f]">
-                        Drops.
+                        {APP_NAME}
                     </h1>
                     <p className="text-[#1d1d1f]/60 text-[15px] font-medium">
                         Enter access code

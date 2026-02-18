@@ -16,6 +16,7 @@ export interface Wine {
     grape: string;
     vintage: string;
     price: number;
+    note?: string;
     description: string;
     stock_status: 'in_stock' | 'out_of_stock';
     tags: { tag_id: string; weight: number }[];
@@ -84,6 +85,7 @@ export async function saveWine(wine: Wine) {
             grape: wine.grape,
             vintage: wine.vintage,
             price: wine.price,
+            note: wine.note,
             description: wine.description,
             stock_status: wine.stock_status
         } as any)

@@ -5,6 +5,7 @@ import { RestaurantData, MenuItem } from '@/types/menu';
 import Footer from './Footer';
 import LoginScreen from './LoginScreen';
 import { getSession, clearSession } from '@/app/lib/session';
+import { TIERS, TIER_KEYS } from '@/app/lib/constants';
 
 export default function SommelierApp() {
     const [menuData, setMenuData] = useState<RestaurantData | null>(null);
@@ -175,31 +176,21 @@ export default function SommelierApp() {
                                     <div className="bg-secondary/50 p-1 rounded-xl flex relative">
                                         {/* Animated Background Pill */}
                                         <div className="absolute inset-1 flex">
-                                            {[
-                                                { id: 'byGlass', label: 'Glass' },
-                                                { id: 'midRange', label: 'Mid' },
-                                                { id: 'exclusive', label: 'Exclusive' }
-                                            ].map((tier, index) => {
-                                                const isActive = selectedTier === tier.id;
-                                                // Calculate approximate width (33.33%) for simplicity or let flexbox handle layout
+                                            {TIER_KEYS.map((tierKey) => {
                                                 return null;
                                             })}
                                         </div>
 
-                                        {[
-                                            { id: 'byGlass', label: 'By the Glass' },
-                                            { id: 'midRange', label: 'Mid-Range' },
-                                            { id: 'exclusive', label: 'Exclusive' }
-                                        ].map((tier) => (
+                                        {TIER_KEYS.map((tierKey: keyof typeof TIERS) => (
                                             <button
-                                                key={tier.id}
-                                                onClick={() => setSelectedTier(tier.id as any)}
-                                                className={`flex-1 relative z-10 py-1.5 text-[11px] md:text-[13px] font-medium rounded-lg transition-all duration-200 ${selectedTier === tier.id
+                                                key={tierKey}
+                                                onClick={() => setSelectedTier(tierKey)}
+                                                className={`flex-1 relative z-10 py-1.5 text-[11px] md:text-[13px] font-medium rounded-lg transition-all duration-200 ${selectedTier === tierKey
                                                     ? 'bg-white text-foreground shadow-sm'
                                                     : 'text-muted-foreground hover:text-foreground'
                                                     }`}
                                             >
-                                                {tier.label}
+                                                {TIERS[tierKey]}
                                             </button>
                                         ))}
                                     </div>

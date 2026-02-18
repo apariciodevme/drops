@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Drops Sommelier App
+
+**Drops.** is an intelligent, digital sommelier application designed for high-end restaurants. It replaces static pairing lists with a dynamic recommendation engine, allowing for real-time inventory management and algorithmic wine pairings based on flavor profiles.
+
+## Core Features
+
+-   **Dynamic Pairing Engine**: Algorithms match wines to dishes based on standard flavor tags (e.g., "Acidic", "Rich", "Spicy").
+-   **Multi-Tenant Architecture**: Supports multiple restaurants (e.g., Palate, Pastis) via a single codebase, managed by Supabase.
+-   **Admin Dashboard**: comprehensive inventory and menu management system.
+-   **Sommelier Interface**: A sleek, guest-facing or staff-facing UI for exploring pairings by price tier (Glass, Mid-Range, Exclusive).
+
+## Tech Stack
+
+-   **Framework**: Next.js 14+ (App Router)
+-   **Database**: Supabase (PostgreSQL)
+-   **Styling**: Tailwind CSS, Framer Motion
+-   **State/Cache**: Server Actions, `unstable_cache` for performance.
 
 ## Getting Started
 
-First, run the development server:
+1.  **Environment Setup**:
+    Ensure you have a `.env.local` file with:
+    ```bash
+    NEXT_PUBLIC_SUPABASE_URL=...
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+    SUPABASE_SERVICE_ROLE_KEY=...
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3.  **Access**:
+    -   **App**: Visit `http://localhost:3000` and enter a tenant access code (e.g., `1234` for Palate).
+    -   **Admin**: Visit `http://localhost:3000/admin` (auto-redirects to login if not authenticated).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-   **Data Source**: All data (Tenants, Menus, Wines, Pairings) is stored in Supabase.
+-   **Legacy Data**: Previous JSON-based data storage (`data/`) has been deprecated in favor of the relational database model.
+-   **Configuration**: Global constants are maintained in `app/lib/constants.ts`.
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on Vercel. Ensure environment variables are synchronized in the Vercel dashboard.
