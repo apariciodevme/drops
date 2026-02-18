@@ -75,19 +75,19 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-[360px] relative z-10 bg-white/40 backdrop-blur-xl border border-white/50 shadow-xl shadow-black/5 rounded-3xl p-8 md:p-10"
+                className="w-full max-w-[320px] relative z-10 bg-white/40 backdrop-blur-xl border border-white/50 shadow-xl shadow-black/5 rounded-[2rem] p-8"
             >
-                <div className="text-center space-y-3 mb-10">
-                    <h1 className="text-4xl font-semibold tracking-tight font-serif italic text-[#1d1d1f]">
+                <div className="text-center space-y-2 mb-8">
+                    <h1 className="text-3xl font-semibold tracking-tight text-[#1d1d1f]">
                         Drops.
                     </h1>
-                    <p className="text-[#1d1d1f]/60 text-[13px] uppercase tracking-widest font-medium">
-                        Enter Access Code
+                    <p className="text-[#1d1d1f]/60 text-[15px] font-medium">
+                        Enter access code
                     </p>
                 </div>
 
                 {/* Input Indicators */}
-                <div className="flex justify-center gap-5 mb-10">
+                <div className="flex justify-center gap-5 mb-8">
                     {[0, 1, 2, 3].map((i) => (
                         <div
                             key={i}
@@ -118,23 +118,23 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                         <button
                             key={num}
                             onClick={() => handleNumberClick(num.toString())}
-                            className="w-full aspect-square rounded-2xl bg-white/50 border border-white/60 text-2xl font-light text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5"
+                            className="w-16 h-16 rounded-full bg-white/50 border border-white/60 text-xl font-medium text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
                             disabled={isLoading}
                         >
                             {num}
                         </button>
                     ))}
-                    <div className="w-full aspect-square" /> {/* Empty slot */}
+                    <div className="w-16 h-16 mx-auto" /> {/* Empty slot */}
                     <button
                         onClick={() => handleNumberClick('0')}
-                        className="w-full aspect-square rounded-2xl bg-white/50 border border-white/60 text-2xl font-light text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5"
+                        className="w-16 h-16 rounded-full bg-white/50 border border-white/60 text-xl font-medium text-[#1d1d1f] hover:bg-white/80 active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation shadow-sm shadow-black/5 mx-auto"
                         disabled={isLoading}
                     >
                         0
                     </button>
                     <button
                         onClick={handleDelete}
-                        className="w-full aspect-square rounded-2xl text-xl font-medium text-[#1d1d1f]/50 hover:text-[#1d1d1f] active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation"
+                        className="w-16 h-16 rounded-full text-lg font-medium text-[#1d1d1f]/50 hover:text-[#1d1d1f] active:scale-95 transition-all duration-100 flex items-center justify-center touch-manipulation mx-auto"
                         disabled={isLoading}
                     >
                         ⌫
