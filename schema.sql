@@ -1,60 +1,70 @@
--- 1. Create Categories Table
-create table categories (
-  id uuid default gen_random_uuid() primary key,
-  tenant_id text references tenants(id) on delete cascade not null,
+-- Enable UUID extension if not already enabled
+create extension if not exists "uuid-ossp";
+
+-- 1. TAGS
+create table if not exists tags (
+  id uuid default uuid_generate_v4() primary key,
   name text not null,
-  sort_order integer default 0,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-
--- 2. Create Menu Items Table
-create table menu_items (
-  id uuid default gen_random_uuid() primary key,
-  category_id uuid references categories(id) on delete cascade not null,
-  dish text not null,
-  price text,
-  sort_order integer default 0,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-
--- 3. Create Wine Pairings Table
-create table wine_pairings (
-  id uuid default gen_random_uuid() primary key,
-  menu_item_id uuid references menu_items(id) on delete cascade not null,
-  tier text not null check (tier in ('byGlass', 'midRange', 'exclusive')),
-  
-  -- Wine Details
-  name text,
-  vintage text,
-  grape text,
-  price text,
-  note text,
-  description text, -- Added for detailed wine info
-  keywords text[], -- Array of strings
-  
+  category text not null, -- 'Flash', 'Body', 'Tannin', 'Acidity', 'Sweetness', 'Type'
+  tenant_id text, -- null for global system tags, set for custom tenant tags
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  
-  -- Ensure one pairing per tier per item
-  unique(menu_item_id, tier)
+  unique (name, category, tenant_id)
 );
 
--- 4. Enable RLS (Row Level Security) - Optional but recommended
-alter table categories enable row level security;
-alter table menu_items enable row level security;
-alter table wine_pairings enable row level security;
+-- 2. WINES (Inventory)
+create table if not exists wines (
+  id uuid default uuid_generate_v4() primary key,
+  tenant_id text not null,
+  name text not null,
+  grape text,
+  vintage text,
+  price numeric,
+  description text,
+  image_url text,
+  stock_status text default 'in_stock' check (stock_status in ('in_stock', 'out_of_stock')),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
 
--- For now, allow public access to match current 'tenants' setup (or existing policies)
--- You might want to restrict write access in production
-create policy "Public read access" on categories for select using (true);
-create policy "Public read access" on menu_items for select using (true);
-create policy "Public read access" on wine_pairings for select using (true);
-create policy "Public write access" on wine_pairings for all using (true);
+-- 3. DISHES
+create table if not exists dishes (
+  id uuid default uuid_generate_v4() primary key,
+  tenant_id text not null,
+  name text not null,
+  category text, -- 'Starter', 'Main', 'Dessert'
+  price numeric,
+  description text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
 
--- 5. Performance Indices (Critical for faster joins)
-create index if not exists idx_categories_tenant_id on categories(tenant_id);
-create index if not exists idx_menu_items_category_id on menu_items(category_id);
-create index if not exists idx_wine_pairings_menu_item_id on wine_pairings(menu_item_id);
-create index if not exists idx_tenants_access_code on tenants(access_code);
+-- 4. WINE_TAGS (Junction)
+create table if not exists wine_tags (
+  wine_id uuid references wines(id) on delete cascade,
+  tag_id uuid references tags(id) on delete cascade,
+  weight integer default 5 check (weight >= 1 and weight <= 10),
+  primary key (wine_id, tag_id)
+);
 
--- 6. Optimization Maintenance
-vacuum analyze;
+-- 5. DISH_TAGS (Junction)
+create table if not exists dish_tags (
+  dish_id uuid references dishes(id) on delete cascade,
+  tag_id uuid references tags(id) on delete cascade,
+  weight integer default 5 check (weight >= 1 and weight <= 10),
+  primary key (dish_id, tag_id)
+);
+
+-- RLS POLICIES (Simple version for now, relies on service_role for admin tools usually)
+alter table tags enable row level security;
+alter table wines enable row level security;
+alter table dishes enable row level security;
+alter table wine_tags enable row level security;
+alter table dish_tags enable row level security;
+
+-- Allow read access to everyone (public menu)
+create policy "Allow public read access on tags" on tags for select using (true);
+create policy "Allow public read access on wines" on wines for select using (true);
+create policy "Allow public read access on dishes" on dishes for select using (true);
+create policy "Allow public read access on wine_tags" on wine_tags for select using (true);
+create policy "Allow public read access on dish_tags" on dish_tags for select using (true);
+
+-- Allow full access to service role (and authenticated users with correct tenant_id if we seek strictness later)
+-- For now, we assume the API handles tenant isolation or we use service role.

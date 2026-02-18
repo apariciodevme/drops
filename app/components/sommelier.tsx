@@ -228,7 +228,7 @@ export default function SommelierApp() {
                                             <div className="bg-secondary w-px"></div>
                                             <div className="text-center">
                                                 <span className="block text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Price</span>
-                                                <span className="text-[17px] text-foreground font-medium">{selectedItem.pairings[selectedTier].price},-</span>
+                                                <span className="text-[17px] text-foreground font-medium">{selectedItem.pairings[selectedTier].price}</span>
                                             </div>
                                         </div>
 

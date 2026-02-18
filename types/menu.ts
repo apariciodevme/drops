@@ -19,7 +19,8 @@ export const PairingsSchema = z.object({
 export const MenuItemSchema = z.object({
     dish: z.string(),
     price: z.union([z.number(), z.string()]),
-    pairings: PairingsSchema
+    pairings: PairingsSchema,
+    tags: z.array(z.string()).optional() // Array of Tag IDs or Names
 });
 
 export const MenuCategorySchema = z.object({
