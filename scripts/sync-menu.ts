@@ -90,6 +90,7 @@ async function syncMenu(tenantId: string) {
                 const tiers = ['byGlass', 'midRange', 'exclusive'] as const;
                 const pairingsToInsert = tiers.map(tier => ({
                     menu_item_id: itemRecord.id,
+                    tenant_id: tenantId,
                     tier: tier,
                     ...item.pairings[tier],
                     description: item.pairings[tier].description || null // Added
