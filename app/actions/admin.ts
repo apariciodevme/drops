@@ -82,7 +82,8 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
         console.log('[Admin] Sequential update successful.');
 
         // Keep the cache clearing!
-        revalidateTag('menu');
+        // Next.js 16 requires a profile argument
+        revalidateTag('menu', 'default');
 
         return { success: true };
     } catch (error: any) {
