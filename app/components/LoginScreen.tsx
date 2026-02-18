@@ -32,19 +32,26 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
 
         setIsLoading(true);
 
-        const result = await authenticateAndLoad(code); // Server Action
+        try {
+            const result = await authenticateAndLoad(code); // Server Action
 
-        if (result.success && result.data) {
-            if (result.tenantId) {
-                saveSession({
-                    tenantId: result.tenantId,
-                    restaurantName: result.restaurantName || "Drops",
-                    menuData: result.data
-                });
+            if (result.success && result.data) {
+                if (result.tenantId) {
+                    saveSession({
+                        tenantId: result.tenantId,
+                        restaurantName: result.restaurantName || "Drops",
+                        menuData: result.data
+                    });
+                }
+                onLogin(result.data, result.restaurantName || "Drops", result.tenantId);
+            } else {
+                setError(result?.error || 'Invalid code');
+                setIsLoading(false);
+                setCode('');
             }
-            onLogin(result.data, result.restaurantName || "Drops", result.tenantId);
-        } else {
-            setError(result?.error || 'Invalid code');
+        } catch (err) {
+            console.error("Login error:", err);
+            setError('System error. Please try again.');
             setIsLoading(false);
             setCode('');
         }
