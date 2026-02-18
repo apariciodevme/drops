@@ -2,6 +2,7 @@
 
 import { supabase } from '@/app/lib/supabase';
 import { RestaurantData, RestaurantDataSchema } from '@/types/menu';
+import { revalidateTag } from 'next/cache';
 
 export async function updateMenu(tenantId: string, data: RestaurantData) {
     if (!tenantId) {
@@ -16,7 +17,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
     }
 
     try {
-        console.log(`[Admin] Starting relational update for tenant: ${tenantId}`);
+        console.log(`[Admin] Starting sequential update for tenant: ${tenantId}`);
 
         // 1. Delete existing structure (Cascade will remove items and pairings)
         const { error: deleteError } = await supabase
@@ -29,7 +30,7 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
             throw new Error('Failed to clear old menu data.');
         }
 
-        // 2. Re-insert full tree
+        // 2. Re-insert full tree (Sequential / Iterative)
         for (let catIndex = 0; catIndex < validation.data.menu.length; catIndex++) {
             const category = validation.data.menu[catIndex];
 
@@ -66,7 +67,8 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
                     menu_item_id: itemRecord.id,
                     tier: tier,
                     ...item.pairings[tier],
-                    description: item.pairings[tier].description || null // ensure it's handled
+                    description: item.pairings[tier].description || null,
+                    keywords: item.pairings[tier].keywords || []
                 }));
 
                 const { error: pairError } = await supabase
@@ -77,10 +79,14 @@ export async function updateMenu(tenantId: string, data: RestaurantData) {
             }
         }
 
-        console.log('[Admin] Relational update successful.');
+        console.log('[Admin] Sequential update successful.');
+
+        // Keep the cache clearing!
+        revalidateTag('menu');
+
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error('Update menu error:', error);
-        return { error: 'Failed to update menu.' };
+        return { error: error.message || 'Failed to update menu.' };
     }
 }

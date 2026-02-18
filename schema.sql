@@ -48,6 +48,13 @@ alter table wine_pairings enable row level security;
 create policy "Public read access" on categories for select using (true);
 create policy "Public read access" on menu_items for select using (true);
 create policy "Public read access" on wine_pairings for select using (true);
-create policy "Public write access" on categories for all using (true);
-create policy "Public write access" on menu_items for all using (true);
 create policy "Public write access" on wine_pairings for all using (true);
+
+-- 5. Performance Indices (Critical for faster joins)
+create index if not exists idx_categories_tenant_id on categories(tenant_id);
+create index if not exists idx_menu_items_category_id on menu_items(category_id);
+create index if not exists idx_wine_pairings_menu_item_id on wine_pairings(menu_item_id);
+create index if not exists idx_tenants_access_code on tenants(access_code);
+
+-- 6. Optimization Maintenance
+vacuum analyze;

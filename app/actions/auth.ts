@@ -1,7 +1,65 @@
 'use server';
 
 import { supabase } from '@/app/lib/supabase';
-import { RestaurantData } from '@/types/menu';
+import { RestaurantData, MenuItem, WinePairing, Pairings } from '@/types/menu';
+import { unstable_cache } from 'next/cache';
+
+// Database response interfaces
+interface DBWinePairing {
+    tier: 'byGlass' | 'midRange' | 'exclusive';
+    name: string;
+    vintage: string;
+    grape: string;
+    price: string;
+    note: string;
+    keywords: string[] | null;
+}
+
+interface DBMenuItem {
+    dish: string;
+    price: string;
+    sort_order: number;
+    wine_pairings: DBWinePairing[];
+}
+
+interface DBCategory {
+    name: string;
+    sort_order: number;
+    menu_items: DBMenuItem[];
+}
+
+// Cached menu fetcher
+const getCachedMenu = unstable_cache(
+    async (tenantId: string) => {
+        const { data: categories, error } = await supabase
+            .from('categories')
+            .select(`
+            name,
+            sort_order,
+            menu_items (
+                dish,
+                price,
+                sort_order,
+                wine_pairings (
+                    tier,
+                    name,
+                    vintage,
+                    grape,
+                    price,
+                    note,
+                    keywords
+                )
+            )
+        `)
+            .eq('tenant_id', tenantId)
+            .order('sort_order', { ascending: true });
+
+        if (error) throw error;
+        return categories as unknown as DBCategory[];
+    },
+    ['menu-data'],
+    { tags: ['menu'] }
+);
 
 export async function authenticateAndLoad(code: string) {
     if (!code) {
@@ -20,53 +78,31 @@ export async function authenticateAndLoad(code: string) {
             return { error: 'Invalid access code.' };
         }
 
-        // 2. Fetch Relational Menu Data
-        // Doing strict ordered fetching is easier with separate queries or ordering in app
-        // But let's try a nested fetch sorted by sort_order
-        const { data: categories, error: menuError } = await supabase
-            .from('categories')
-            .select(`
-                name,
-                sort_order,
-                menu_items (
-                    dish,
-                    price,
-                    sort_order,
-                    wine_pairings (
-                        tier,
-                        name,
-                        vintage,
-                        grape,
-                        price,
-                        note,
-                        keywords
-                    )
-                )
-            `)
-            .eq('tenant_id', tenant.id)
-            .order('sort_order', { ascending: true });
-
-        if (menuError) {
+        // 2. Fetch Relational Menu Data (Cached)
+        let categories: DBCategory[];
+        try {
+            categories = await getCachedMenu(tenant.id);
+        } catch (menuError) {
             console.error('Menu fetch error:', menuError);
             return { error: 'Failed to load menu.' };
         }
 
         // 3. Transform to RestaurantData structure
-        const menu = categories.map((cat: any) => ({
+        const menu = categories.map((cat) => ({
             category: cat.name,
             items: (cat.menu_items || [])
-                .sort((a: any, b: any) => a.sort_order - b.sort_order)
-                .map((item: any) => {
+                .sort((a, b) => a.sort_order - b.sort_order)
+                .map((item) => {
                     // Reconstruct pairings object
-                    const pairings: any = {
-                        byGlass: {},
-                        midRange: {},
-                        exclusive: {}
+                    const pairings: Pairings = {
+                        byGlass: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] },
+                        midRange: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] },
+                        exclusive: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] }
                     };
 
                     if (item.wine_pairings) {
-                        item.wine_pairings.forEach((p: any) => {
-                            if (pairings[p.tier] !== undefined) {
+                        item.wine_pairings.forEach((p) => {
+                            if (pairings[p.tier]) {
                                 pairings[p.tier] = {
                                     name: p.name,
                                     vintage: p.vintage,

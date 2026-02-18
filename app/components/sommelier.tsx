@@ -57,10 +57,10 @@ export default function SommelierApp() {
     }
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
-            {/* Minimal Header */}
-            <header className="mb-12 text-center space-y-2 sticky top-0 z-40 py-4 w-full backdrop-blur-xl bg-background/80 border-b border-white/20">
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 pr-4">
+        <div className="min-h-screen bg-background text-foreground font-sans flex flex-col items-center transition-colors duration-500">
+            {/* Minimal Header - Added pt-8 pb-4 to replace container padding */}
+            <header className="w-full text-center space-y-2 sticky top-0 z-40 pt-8 pb-4 backdrop-blur-xl bg-background/80 border-b border-white/20 px-4 sm:px-6 lg:px-8">
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                     <a
                         href="/admin"
                         className="text-xs font-medium text-muted-foreground hover:text-foreground transition-all duration-200"
@@ -78,7 +78,7 @@ export default function SommelierApp() {
                         Switch
                     </button>
                 </div>
-                <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+                <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground font-serif italic">
                     {restaurantName}
                 </h1>
                 <p className="text-muted-foreground text-[17px] leading-relaxed">
@@ -86,14 +86,15 @@ export default function SommelierApp() {
                 </p>
             </header>
 
-            <main className="w-full max-w-4xl grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+            {/* Main - Added py-12 to replace container padding */}
+            <main className="w-full max-w-4xl grid lg:grid-cols-2 gap-8 lg:gap-16 items-start flex-1 py-6 md:py-12 px-4 sm:px-6 lg:px-8">
                 {/* Left Column: Selection */}
-                <div className="space-y-6 lg:sticky lg:top-32">
+                <div className="space-y-6 lg:sticky lg:top-36">
                     <div className="space-y-2">
-                        <label className="block text-2xl font-semibold tracking-tight text-foreground">
+                        <label className="block text-xl md:text-2xl font-semibold tracking-tight text-foreground">
                             Menu Selection
                         </label>
-                        <p className="text-muted-foreground text-[17px] leading-relaxed">
+                        <p className="text-muted-foreground text-[15px] md:text-[17px] leading-relaxed">
                             Choose your dish to find the perfect pairing.
                         </p>
                     </div>
@@ -169,7 +170,7 @@ export default function SommelierApp() {
                                 transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
                                 className="w-full bg-white rounded-3xl shadow-lg border border-white/50 overflow-hidden relative"
                             >
-                                <div className="p-8 space-y-8">
+                                <div className="p-5 md:p-8 space-y-6 md:space-y-8">
                                     {/* IOS Segmented Control */}
                                     <div className="bg-secondary/50 p-1 rounded-xl flex relative">
                                         {/* Animated Background Pill */}
@@ -193,7 +194,7 @@ export default function SommelierApp() {
                                             <button
                                                 key={tier.id}
                                                 onClick={() => setSelectedTier(tier.id as any)}
-                                                className={`flex-1 relative z-10 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 ${selectedTier === tier.id
+                                                className={`flex-1 relative z-10 py-1.5 text-[11px] md:text-[13px] font-medium rounded-lg transition-all duration-200 ${selectedTier === tier.id
                                                     ? 'bg-white text-foreground shadow-sm'
                                                     : 'text-muted-foreground hover:text-foreground'
                                                     }`}
@@ -214,12 +215,12 @@ export default function SommelierApp() {
                                             <p className="text-[13px] font-semibold text-primary uppercase tracking-wide">
                                                 {selectedItem.pairings[selectedTier].grape}
                                             </p>
-                                            <h2 className="text-3xl font-semibold text-foreground tracking-tight leading-tight">
+                                            <h2 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-tight font-serif italic">
                                                 {selectedItem.pairings[selectedTier].name}
                                             </h2>
                                         </div>
 
-                                        <div className="flex justify-center gap-12 py-4 border-y border-secondary">
+                                        <div className="flex justify-center gap-6 md:gap-12 py-4 border-y border-secondary">
                                             <div className="text-center">
                                                 <span className="block text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">Vintage</span>
                                                 <span className="text-[17px] text-foreground font-medium">{selectedItem.pairings[selectedTier].vintage}</span>
@@ -272,7 +273,7 @@ export default function SommelierApp() {
                 </div>
             </main>
 
-            <footer className="mt-auto py-8 text-center text-muted-foreground text-[11px] font-medium tracking-wide opacity-60">
+            <footer className="w-full py-8 text-center text-muted-foreground text-[11px] font-medium tracking-wide opacity-60 bg-background/80 backdrop-blur-md">
                 <Footer />
             </footer>
         </div>

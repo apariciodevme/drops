@@ -118,27 +118,27 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
 
     return (
         <div className="min-h-screen bg-gray-50 p-8 font-sans">
-            <header className="flex flex-col gap-6 mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-200 sticky top-4 z-40">
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-4">
+            <header className="flex flex-col gap-4 mb-8 bg-white p-4 rounded-xl shadow-sm border border-gray-200 sticky top-4 z-40">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full md:w-auto">
                         <a href="/" className="text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors flex items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                             Back to App
                         </a>
-                        <h1 className="text-2xl font-bold text-gray-900">{restaurantName} <span className="text-gray-400 font-light">Manager</span></h1>
+                        <h1 className="text-xl md:text-2xl font-bold text-gray-900">{restaurantName} <span className="text-gray-400 font-light">Manager</span></h1>
                     </div>
-                    <div className="flex items-center gap-4">
-                        {message && <span className={`text-sm font-medium ${message.includes('Error') ? 'text-red-600' : 'text-green-600'}`}>{message}</span>}
+                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+                        {message && <span className={`text-sm font-medium ${message.includes('Error') ? 'text-red-600' : 'text-green-600'} w-full md:w-auto text-right`}>{message}</span>}
                         <button
                             onClick={handleSave}
                             disabled={isSaving}
-                            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+                            className="flex-1 md:flex-none bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 text-sm whitespace-nowrap"
                         >
                             {isSaving ? 'Saving...' : 'Save Changes'}
                         </button>
                         <button
                             onClick={onLogout}
-                            className="text-gray-500 hover:text-gray-700 font-medium text-sm"
+                            className="px-3 py-2 text-gray-500 hover:text-gray-700 font-medium text-sm bg-gray-100 md:bg-transparent rounded-lg md:rounded-none transition-colors"
                         >
                             Logout
                         </button>
