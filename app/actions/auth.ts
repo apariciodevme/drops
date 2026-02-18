@@ -12,6 +12,7 @@ interface DBWinePairing {
     grape: string;
     price: string;
     note: string;
+    description: string | null;
     keywords: string[] | null;
 }
 
@@ -47,6 +48,7 @@ const getCachedMenu = unstable_cache(
                     grape,
                     price,
                     note,
+                    description,
                     keywords
                 )
             )
@@ -94,11 +96,10 @@ export async function authenticateAndLoad(code: string) {
             items: (cat.menu_items || [])
                 .sort((a, b) => a.sort_order - b.sort_order)
                 .map((item) => {
-                    // Reconstruct pairings object
                     const pairings: Pairings = {
-                        byGlass: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] },
-                        midRange: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] },
-                        exclusive: { name: '', grape: '', vintage: '', price: '', note: '', keywords: [] }
+                        byGlass: { name: '', grape: '', vintage: '', price: '', note: '', description: '', keywords: [] },
+                        midRange: { name: '', grape: '', vintage: '', price: '', note: '', description: '', keywords: [] },
+                        exclusive: { name: '', grape: '', vintage: '', price: '', note: '', description: '', keywords: [] }
                     };
 
                     if (item.wine_pairings) {
@@ -110,6 +111,7 @@ export async function authenticateAndLoad(code: string) {
                                     grape: p.grape,
                                     price: p.price,
                                     note: p.note,
+                                    description: p.description,
                                     keywords: p.keywords
                                 };
                             }

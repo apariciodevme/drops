@@ -8,10 +8,10 @@ import { RestaurantDataSchema } from '../types/menu';
 dotenv.config({ path: '.env.local' });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // Use Service Role Key to bypass RLS
 
 if (!supabaseUrl || !supabaseKey) {
-    console.error('Error: Missing Supabase environment variables.');
+    console.error('Error: Missing Supabase environment variables (NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY).');
     process.exit(1);
 }
 
@@ -103,6 +103,23 @@ async function syncMenu(tenantId: string) {
             }
         }
         console.log('✅ Menu synced successfully!');
+
+        // 3. Revalidate Next.js Cache (if server is running)
+        try {
+            const revalidateUrl = `http://localhost:3000/api/revalidate?tag=menu&secret=${supabaseKey}`;
+            console.log('Triggering cache revalidation at:', revalidateUrl);
+            const res = await fetch(revalidateUrl);
+            if (res.ok) {
+                console.log('✅ Cache revalidated.');
+            } else {
+                console.warn('⚠️ Cache revalidation failed:', await res.text());
+                console.warn('Note: If the dev server is not running, this is expected. You may need to restart the server to see changes.');
+            }
+        } catch (err) {
+            console.warn('⚠️ Could not trigger cache revalidation (server might be down).');
+            console.warn('Note: Restart the dev server to see changes.');
+        }
+
     } catch (e: any) {
         console.error('Sync failed:', e.message);
         process.exit(1);
