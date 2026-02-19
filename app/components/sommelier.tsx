@@ -16,6 +16,33 @@ export default function SommelierApp() {
         if (session) {
             setMenuData(session.menuData);
             setRestaurantName(session.restaurantName);
+
+            // Background Refresh (Stale-While-Revalidate)
+            import('@/app/actions/auth').then(({ refreshMenu }) => {
+                refreshMenu(session.tenantId).then((freshData) => {
+                    if (freshData && freshData.menu) {
+                        // Only update if data changed (naive check: deep stringify comparison or just always update)
+                        // For simplicity and to ensure freshness, we update local state and storage
+                        const newSessionData = {
+                            ...session,
+                            menuData: {
+                                ...session.menuData,
+                                menu: freshData.menu
+                            }
+                        };
+
+                        // Check if actually different to avoid unnecessary re-renders/writes
+                        if (JSON.stringify(session.menuData.menu) !== JSON.stringify(freshData.menu)) {
+                            console.log("Refreshing menu data from server...");
+                            setMenuData(newSessionData.menuData);
+                            // Update local storage so next load is also fresh
+                            import('@/app/lib/session').then(({ saveSession }) => {
+                                saveSession(newSessionData);
+                            });
+                        }
+                    }
+                });
+            });
         }
     }, []);
 

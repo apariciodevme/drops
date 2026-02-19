@@ -1,7 +1,7 @@
 'use server';
 
 import { supabaseAdmin } from '@/app/lib/supabase-admin';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export interface Tag {
     id: string;
@@ -118,6 +118,7 @@ export async function saveWine(wine: Wine) {
     }
 
     revalidatePath('/admin');
+    revalidateTag('menu', 'default');
     return { success: true, data: savedWine };
 }
 
@@ -129,5 +130,6 @@ export async function deleteWine(wineId: string) {
     }
 
     revalidatePath('/admin');
+    revalidateTag('menu', 'default');
     return { success: true };
 }

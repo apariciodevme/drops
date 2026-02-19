@@ -3,12 +3,13 @@
 import React, { useState, useEffect, useMemo, memo } from 'react';
 import { RestaurantData, MenuItem, Pairings, WinePairing } from '@/types/menu';
 import { updateMenu } from '../actions/admin';
-import { getTags, Tag } from '../actions/inventory';
+import { getTags, getWines, Tag, Wine } from '../actions/inventory';
 import { generatePairings } from '../actions/pairing';
 import { saveSession } from '@/app/lib/session';
 import { TIERS, TIER_KEYS } from '@/app/lib/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import WineInventory from './WineInventory';
+import WineSelector from './WineSelector';
 
 // --- Types & Constants ---
 
@@ -77,6 +78,7 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
     const [activeTab, setActiveTab] = useState<'menu' | 'inventory'>('menu');
     const [data, setData] = useState<RestaurantData>(initialData);
     const [tags, setTags] = useState<Tag[]>([]); // For Dish Tagging
+    const [wines, setWines] = useState<Wine[]>([]); // For Wine Selection
     const [isSaving, setIsSaving] = useState(false);
     const [isPairing, setIsPairing] = useState<string | null>(null); // "catIndex-itemIndex"
     const [message, setMessage] = useState('');
@@ -91,7 +93,9 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
     useEffect(() => {
         // Fetch tags for menu editing
         getTags().then(setTags);
-    }, []);
+        // Fetch wines for selector
+        getWines(tenantId).then(setWines);
+    }, [tenantId]);
 
     const toggleCategory = (category: string) => {
         setOpenCategories(prev => ({ ...prev, [category]: !prev[category] }));
@@ -132,6 +136,23 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
             newTags = [...currentTags, tagId];
         }
         updateItem(catIndex, itemIndex, { ...item, tags: newTags });
+    };
+
+    const handleWineSelect = (catIndex: number, itemIndex: number, tier: keyof Pairings, wine: Wine) => {
+        const item = data.menu[catIndex].items[itemIndex];
+        const newItem = structuredClone(item);
+
+        newItem.pairings[tier] = {
+            ...newItem.pairings[tier],
+            name: wine.name,
+            grape: wine.grape,
+            vintage: wine.vintage,
+            price: wine.price.toString(),
+            description: wine.description,
+            wine_id: wine.id, // Set the link
+        };
+
+        updateItem(catIndex, itemIndex, newItem);
     };
 
     const handleAutoPair = async (catIndex: number, itemIndex: number) => {
@@ -251,7 +272,6 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
             <div className="md:hidden bg-card border-b border-border p-4 sticky top-0 z-50 flex items-center justify-between">
                 <h1 className="text-lg font-bold text-foreground">{restaurantName}</h1>
                 <div className="flex items-center gap-2">
-                    {/* ThemeToggle Removed */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         className="p-2 text-muted-foreground hover:bg-secondary rounded-lg"
@@ -265,7 +285,7 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                 </div>
             </div>
 
-            {/* Sidebar Navigation (Desktop: Sidebar, Mobile: Drawer) */}
+            {/* Sidebar Navigation */}
             <aside className={`
                 bg-card border-r border-border 
                 w-64 flex-shrink-0 
@@ -278,8 +298,6 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                 </div>
 
                 <nav className="p-4 space-y-1">
-                    {/* Theme Toggle Section Removed */}
-
                     <a href="/" className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground rounded-md hover:bg-secondary hover:text-foreground transition-colors mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                         Back to App
@@ -327,7 +345,7 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                 </div>
             </aside>
 
-            {/* Overlay for mobile when menu is open */}
+            {/* Overlay for mobile */}
             {mobileMenuOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-30 md:hidden top-[60px]"
@@ -470,23 +488,25 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                         Wine Pairings
                                                                     </h3>
 
-                                                                    <button
-                                                                        onClick={() => handleAutoPair(category.originalIndex, item.originalIndex)}
-                                                                        disabled={isPairing === `${category.originalIndex}-${item.originalIndex}`}
-                                                                        className="text-xs font-bold text-primary flex items-center gap-1 hover:underline disabled:opacity-50"
-                                                                    >
-                                                                        {isPairing === `${category.originalIndex}-${item.originalIndex}` ? (
-                                                                            <>
-                                                                                <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                                                                Generating...
-                                                                            </>
-                                                                        ) : (
-                                                                            <>
-                                                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                                                                                Auto-Pair AI
-                                                                            </>
-                                                                        )}
-                                                                    </button>
+                                                                    {/* Auto-Pair AI Removed
+                                    <button
+                                        onClick={() => handleAutoPair(category.originalIndex, item.originalIndex)}
+                                        disabled={isPairing === `${category.originalIndex}-${item.originalIndex}`}
+                                        className="text-xs font-bold text-primary flex items-center gap-1 hover:underline disabled:opacity-50"
+                                    >
+                                        {isPairing === `${category.originalIndex}-${item.originalIndex}` ? (
+                                            <>
+                                                <svg className="animate-spin h-3 w-3" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                                Generating...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                                Auto-Pair AI
+                                            </>
+                                        )}
+                                    </button>
+                                    */}
                                                                 </div>
 
                                                                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 divide-y lg:divide-y-0 lg:divide-x divide-border">
@@ -497,6 +517,16 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                                 }`}>
                                                                                 {TIERS[tier]}
                                                                             </div>
+
+                                                                            {/* Wine Selector */}
+                                                                            <WineSelector
+                                                                                wines={wines}
+                                                                                currentWineId={item.pairings[tier].wine_id}
+                                                                                onSelect={(wine) => handleWineSelect(category.originalIndex, item.originalIndex, tier as keyof Pairings, wine)}
+                                                                            />
+
+                                                                            <div className="my-2 border-t border-border/50"></div>
+
                                                                             <MenuInput label="Name" value={item.pairings[tier].name} onChange={(val) => {
                                                                                 const newItem = structuredClone(item);
                                                                                 newItem.pairings[tier].name = val;
@@ -507,6 +537,7 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                                 newItem.pairings[tier].grape = val;
                                                                                 updateItem(category.originalIndex, item.originalIndex, newItem);
                                                                             }} />
+
                                                                             <div className="grid grid-cols-2 gap-2">
                                                                                 <MenuInput label="Vintage" value={item.pairings[tier].vintage} onChange={(val) => {
                                                                                     const newItem = structuredClone(item);
@@ -522,11 +553,6 @@ export default function AdminDashboard({ initialData, tenantId, restaurantName, 
                                                                             <MenuInput type="textarea" label="Note" value={item.pairings[tier].note} onChange={(val) => {
                                                                                 const newItem = structuredClone(item);
                                                                                 newItem.pairings[tier].note = val;
-                                                                                updateItem(category.originalIndex, item.originalIndex, newItem);
-                                                                            }} />
-                                                                            <MenuInput type="textarea" label="Description" value={item.pairings[tier].description || ''} onChange={(val) => {
-                                                                                const newItem = structuredClone(item);
-                                                                                newItem.pairings[tier].description = val;
                                                                                 updateItem(category.originalIndex, item.originalIndex, newItem);
                                                                             }} />
                                                                         </div>

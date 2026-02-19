@@ -1,0 +1,8 @@
+name,vintage,grape,price,description,stock_status
+Mock Chablis,2022,Chardonnay,85,"Crisp, high acidity, green apple notes.",in_stock
+Mock Barolo,2018,Nebbiolo,120,"Full bodied, high tannins, tar and roses.",in_stock
+Mock Provence Rosé,2023,Grenache Blend,45,"Dry, strawberry notes, refreshing.",in_stock
+Mock Champagne,NV,Blend,150,"Brioche, fine bubbles, elegant.",in_stock
+Mock Sancerre,2023,Sauvignon Blanc,60,"Flinty, citrus zest, grass.",in_stock
+Mock Pinot Noir,2021,Pinot Noir,75,"Red cherry, earth, light bodied.",in_stock
+Mock Cabot,2019,Cabernet Sauvignon,95,"Bold, blackcurrant, cedar oak.",in_stock
