@@ -46,7 +46,9 @@ const getCachedMenu = unstable_cache(
                 price,
                 sort_order,
                 wine_pairings (
+                    id,
                     tier,
+                    wine_id,
                     note,
                     wines (
                         name,
